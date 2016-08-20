@@ -4,18 +4,17 @@ import numpy as np
 
 print("Start robot")
 pwm = Adafruit_PCA9685.PCA9685()
-
+pwm.set_pwm_freq(50)
 SERVO_0 = 0
 SERVO_1 = 1
 
-servos = np.array([SERVO_0, SERVO_1])
-min_angle = np.array([-90.0, -90.0])
-max_angle = np.array([90.0, 90.0])
+min_angle = np.array([-90.0, -90.0, -90.0, -90.0, -90.0, -90.0])
+max_angle = np.array([90.0, 90.0, 90.0, 90.0, 90.0, 90.0])
 diff_angle = np.absolute(min_angle) + np.absolute(max_angle)
-zero_angle = np.array([0.0, 0.0])
+zero_angle = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ])
 
-min = np.array([200.0, 200.0])
-max = np.array([400.0, 400.0])
+min = np.array([200.0, 200.0 , 200.0, 200.0, 200.0, 200.0])
+max = np.array([400.0, 400.0, 400.0, 400.0, 400.0, 400.0])
 diff = max - min
 current_angles = np.array(zero_angle)
 
@@ -34,15 +33,14 @@ def set_angles(angles):
 
 def set_angles_raw(angles):
   calc_values = (diff / diff_angle * (angles + np.absolute(min_angle) )) + min
-  #print("angles: "+ str(angles) + " -> values: " + str(calc_values))
+  print("angles: "+ str(angles) + " -> values: " + str(calc_values))
   for servo,value in enumerate(calc_values):
     pwm.set_pwm(servo, 0, int(value))
 
 set_angles_raw(zero_angle)
-raw_input("weiter? ")
-set_angles(np.array([90, 0]))
-raw_input("weiter? ")
-set_angles(np.array([-90, 0]))
+for i in range(0,20):
+  a = input("angles?")
+  set_angles(np.array(a))
 
 
 raw_input("weiter? ")
