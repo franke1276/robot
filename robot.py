@@ -1,48 +1,18 @@
-from time import sleep
-import Adafruit_PCA9685
+import ikpy
 import numpy as np
-
-print("Start robot")
-pwm = Adafruit_PCA9685.PCA9685()
-pwm.set_pwm_freq(50)
-SERVO_0 = 0
-SERVO_1 = 1
-
-min_angle = np.array([-90.0, -90.0, -90.0, -90.0, -90.0, -90.0])
-max_angle = np.array([90.0, 90.0, 90.0, 90.0, 90.0, 90.0])
-diff_angle = np.absolute(min_angle) + np.absolute(max_angle)
-zero_angle = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ])
-
-min = np.array([200.0, 200.0 , 200.0, 200.0, 200.0, 200.0])
-max = np.array([400.0, 400.0, 400.0, 400.0, 400.0, 400.0])
-diff = max - min
-current_angles = np.array(zero_angle)
-
-def set_angles(angles):
-  global current_angles
-  diff_angles = angles - current_angles
-  print("change angle by" + str(diff_angles) + " to "+ str(angles))
-  steps = np.amax(np.absolute(diff_angles))
-  if steps > 0:
-    step = (diff_angles) / steps
-    #print("step: " + str(step))
-    for i in range(0, int(steps)):
-      current_angles += step
-      set_angles_raw(current_angles)
-      sleep(0.01)
-
-def set_angles_raw(angles):
-  calc_values = (diff / diff_angle * (angles + np.absolute(min_angle) )) + min
-  print("angles: "+ str(angles) + " -> values: " + str(calc_values))
-  for servo,value in enumerate(calc_values):
-    pwm.set_pwm(servo, 0, int(value))
-
-set_angles_raw(zero_angle)
-for i in range(0,20):
-  a = input("angles?")
-  set_angles(np.array(a))
+from ikpy import plot_utils
+import matplotlib.pyplot as plt
 
 
-raw_input("weiter? ")
-set_angles(zero_angle)
+my_chain = ikpy.chain.Chain.from_urdf_file("file.urdf")
 
+target_vector = [ 0.15, 0.15, 0.2]
+target_frame = np.eye(4)
+target_frame[:3, 3] = target_vector
+
+print("for " + str(target_vector) + " The angles of each joints are : ", my_chain.inverse_kinematics(target_frame))
+#ax = plot_utils.init_3d_figure()
+#my_chain.plot(my_chain.inverse_kinematics(target_frame), ax, target=target_vector)
+#plt.xlim(-0.1, 0.1)
+#plt.ylim(-0.1, 0.1)
+#plt.show()
