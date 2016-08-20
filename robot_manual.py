@@ -34,6 +34,9 @@ while not exit:
     if a == 'y':
       robot.set_angles(robot.current_pos() + np.array([0,0,0,0,0,1]))
     if a == 'h':
-      bot.set_angles(robot.current_pos() + np.array([0,0,0,0,0,-1]))
+      robot.set_angles(robot.current_pos() + np.array([0,0,0,0,0,-1]))
+    if a == 'm':
+      p = raw_input("Name:")
+      print(p + ": " + str(robot.current_pos()))
 robot.reset()
 

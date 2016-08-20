@@ -31,7 +31,7 @@ class Robot():
       print("step: " + str(step))
       self.current += step
       self.__set_angles_raw(self.current)
-      sleep(0.01)
+      sleep(0.001)
 
   def __set_angles_raw(self, values):
     print("set values: " + str(values))
