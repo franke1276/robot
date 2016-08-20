@@ -6,29 +6,32 @@ import numpy as np
 print("Start robot")
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
-zero = np.array([300,300,300,300,300,300])
 
-current_angles= np.array(zero)
+current_angles= np.array([300,300,300,300,300,300])
+def gtOrLtOrEq(z):
+  if z > 0:
+    return 1
+  if z < 0:
+    return -1
+  return 0
 
 def set_angles(angles):
   global current_angles
-  diff_angles = angles - current_angles
-  print("change angle by" + str(diff_angles) + " to "+ str(angles))
-  steps = np.amax(np.absolute(diff_angles))
-  print("steps: " + str(steps))
-  if steps > 0:
-    step = (diff_angles) / steps
-    for i in range(0, int(steps)):
-      current_angles += step
-      set_angles_raw(current_angles)
-      sleep(0.01)
+  while not np.array_equal(angles, current_angles):
+    diff = angles - current_angles
+    step = [gtOrLtOrEq(x) for x in diff]
+    print("change angle by" + str(diff) + " to "+ str(angles))
+    print("step: " + str(step))
+    current_angles += step
+    set_angles_raw(current_angles)
+    sleep(0.01)
 
 def set_angles_raw(values):
   print("set values: " + str(values))
   for servo,value in enumerate(values):
     pwm.set_pwm(servo, 0, int(value))
 
-set_angles_raw(zero)
+set_angles_raw(np.array([300,300,300,300,300,300]))
 exit = False
 while not exit:
   a = readchar.readchar()
@@ -60,5 +63,5 @@ while not exit:
     if a == 'h':
       set_angles(current_angles + np.array([0,0,0,0,0,-1]))
 
-set_angles(zero)
+set_angles(np.array([300,300,300,300,300,300]))
 
