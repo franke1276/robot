@@ -16,9 +16,9 @@ while not exit:
     if a == 'a':
       robot.set_angles(robot.current_pos() + np.array([-1,0,0,0,0,0]))
     if a == 'w':
-      robot.set_angles(robot.current_pos() + np.array([0,1,0,0,0,0]))
+      robot.set_angles(robot.current_pos() + np.array([0,1,-1,0,0,0]))
     if a == 's':
-      robot.set_angles(robot.current_pos() + np.array([0,-1,0,0,0,0]))
+      robot.set_angles(robot.current_pos() + np.array([0,-1,+1,0,0,0]))
     if a == 'e':
       robot.set_angles(robot.current_pos() + np.array([0,0,1,0,0,0]))
     if a == 'd':

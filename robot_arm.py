@@ -5,7 +5,7 @@ import numpy as np
 
 class Robot():
   freq = None
-  current = np.array([300,300,300,300,300,300])
+  current = np.array([335, 339,139,200,325,336])
   pwm = None
 
   def __init__(self, freq):
@@ -14,7 +14,7 @@ class Robot():
     self.pwm.set_pwm_freq(50)
     self.__set_angles_raw(self.current)
   def reset(self):
-    self.set_angles(np.array([300,300,300,300,300,300]))
+    self.set_angles(np.array([335, 339,139,200,325,336]))
   def current_pos(self):
     return self.current
   def __gtOrLtOrEq(self, z):
