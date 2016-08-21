@@ -33,15 +33,17 @@ class Robot():
     self.set_angles(self.current_pos() + angles_diff)
   def set_angles(self,angles):
     translated_angles = self.translate(angles).astype(int)
-    while not np.array_equal(translated_angles, self.current):
-      print("translated_angles: " + str(translated_angles) + " self.current: " + str(self.current))
-      diff = translated_angles - self.current
-      step = [self.__gtOrLtOrEq(x) for x in diff]
-      #print("change angle by" + str(diff) + " to "+ str(translated_angles)+ " angeles: " + str(angles))
-      #print("step: " + str(step))
-      self.current += step
-      self.__set_angles_raw(self.current)
-      sleep(0.002)
+    self.current = translated_angles
+    self.__set_angles_raw(self.current)
+    print("go to: " + str(angles))
+#    while not np.array_equal(translated_angles, self.current):
+#      diff = translated_angles - self.current
+#      step = [self.__gtOrLtOrEq(x) for x in diff]
+#      #print("change angle by" + str(diff) + " to "+ str(translated_angles)+ " angeles: " + str(angles))
+#      #print("step: " + str(step))
+#      self.current += step
+#      self.__set_angles_raw(self.current)
+#      sleep(0.002)
     self.current_angles = angles
 
   def __set_angles_raw(self, values):
