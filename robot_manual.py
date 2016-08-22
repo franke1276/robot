@@ -40,8 +40,8 @@ while not exit:
       p = input("New pos:")
       diff = np.array(p) - robot.current_pos()
       newPos = np.array(p)
-      newPos[2] = newPos[2] + diff[1]
-      print("current pos: "+str(robot.current_pos())+" get: " + str(p) + " set: "+ str(newPos))
+      newPos[2] = newPos[2] + newPos[1]
+      print("current pos: "+str(robot.current_pos())+" get: " + str(p) + " set: "+ str(newPos) + " diff: " + str(diff))
       robot.set_angles(newPos)
       print("current pos: " + str(robot.current_pos()))
     if a == 'c':
