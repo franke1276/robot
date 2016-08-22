@@ -3,7 +3,7 @@ import numpy as np
 from ikpy import plot_utils
 import sys
 
-my_chain = ikpy.chain.Chain.from_urdf_file("file.urdf")
+my_chain = ikpy.chain.Chain.from_urdf_file("file1.urdf")
 list = [float(x) for x in sys.argv[1:4]]
 print(list)
 target_vector = list
