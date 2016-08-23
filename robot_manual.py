@@ -38,11 +38,7 @@ while not exit:
       robot.change_angles(np.array([0,0,0,0,0,-step]))
     if a == 'p':
       p = input("New pos:")
-      diff = np.array(p) - robot.current_pos()
-      newPos = np.array(p)
-      newPos[2] = newPos[2] + newPos[1]
-      print("current pos: "+str(robot.current_pos())+" get: " + str(p) + " set: "+ str(newPos) + " diff: " + str(diff))
-      robot.set_angles(newPos)
+      robot.set_angles(p)
       print("current pos: " + str(robot.current_pos()))
     if a == 'c':
       robot.reset()
