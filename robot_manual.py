@@ -38,8 +38,13 @@ while not exit:
       robot.change_angles(np.array([0,0,0,0,0,-step]))
     if a == 'p':
       p = input("New pos:")
-      robot.set_angles(p)
+      robot.set_angles(np.array(p))
       print("current pos: " + str(robot.current_pos()))
+    if a == 'n':
+      path = raw_input("file with path:")
+      with open(path, "r") as f:
+        data = eval(f.read())
+        robot.move_path(data)
     if a == 'c':
       robot.reset()
     if a == 'm':
