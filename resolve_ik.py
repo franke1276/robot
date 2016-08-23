@@ -9,5 +9,9 @@ print(list)
 target_vector = list
 target_frame = np.eye(4)
 target_frame[:3, 3] = target_vector
-
-print(str(my_chain.inverse_kinematics(target_frame).tolist()[1:7]))
+print(str(my_chain.inverse_kinematics([
+                             [0.7, -0.7, 0, 0.1],
+                             [0.7, 0.7, 0, 0.1],
+                             [0, 0, 1, 0.1],
+                             [0, 0, 0, 1]])))
+#print(str(my_chain.inverse_kinematics(target_frame).tolist()[1:7]))
