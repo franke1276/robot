@@ -15,10 +15,18 @@ def generate_path(start_pos, end_pos, velocity, resolution):
   step = (end_pos - start_pos) / steps
   return [start_pos + (step * x) for x in range(0, steps)]
 
+
 my_chain = ikpy.chain.Chain.from_urdf_file("file1.urdf")
 
-path = generate_path(np.array([0.15, 0.15, 0.15]), np.array([-0.1, 0.1, 0.4]), 0.1, 0.01)
-translated_path = [ik(my_chain, x) for x in path]
-with open("path", "w") as f:
-  f.write(str(translated_path))
-print("count of path elemets: " + str(len(translated_path)))
+def translate_path(start_pos, end_pos, velocity, resolution):
+  path = generate_path(np.array(start_pos),np.array(end_pos), velocity,resolution)
+  translated_path = [ik(my_chain, x) for x in path]
+  for p in translated_path:
+   print(str(p)) 
+
+res = 0.0015
+translate_path([0, 0.196, 0.245], [0.1, 0.1, 0.1], 1, res)
+translate_path([0.1, 0.1, 0.1], [-0.1, 0.1, 0.1], 1, res)
+translate_path([-0.1, 0.1, 0.1], [0, 0.25, 0.1], 1, res)
+translate_path([0, 0.25, 0.1], [0.1, 0.1, 0.1], 1, res)
+translate_path( [0.1, 0.1, 0.1],[0, 0.196, 0.245], 1, res)
