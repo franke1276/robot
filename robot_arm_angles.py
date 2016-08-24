@@ -21,12 +21,6 @@ class Robot():
     self.__set_angles_raw(self.current)
   def current_pos(self):
     return self.current_angles
-  def __gtOrLtOrEq(self, z):
-    if z > 0:
-      return 1
-    if z < 0:
-      return -1
-    return 0
   def translate(self, angles):
     return (angles * self.factor) + self.offset
   def change_angles(self, angles_diff):
@@ -34,7 +28,7 @@ class Robot():
   def move_path(self, path):
     for p in path:
       self.set_angles(p)
-      sleep(0.01)
+      sleep(0.015)
   def set_angles(self,angles):
     corrected_angles = np.array(angles)
     corrected_angles[2] = corrected_angles[2] + corrected_angles[1]

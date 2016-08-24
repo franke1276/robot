@@ -43,8 +43,8 @@ while not exit:
     if a == 'n':
       path = raw_input("file with path:")
       with open(path, "r") as f:
-        data = eval(f.read())
-        robot.move_path(data)
+        lines = [eval(line) for line in f]
+      robot.move_path(lines)
     if a == 'c':
       robot.reset()
     if a == 'm':
