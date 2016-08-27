@@ -103,13 +103,13 @@
       <geometry>
         <cylinder length="0.055" radius="0.005"/>
       </geometry>
-      <origin rpy="1.57 0 0" xyz="0 0.0225 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.025"/>
     </visual>
   </link>
   <joint name="link6_link7" type="fixed">
     <parent link="link6"/>
     <child link="link7"/>
-    <origin rpy="0 -1.57 0" xyz="0.055 0 0.0025"/>
+    <origin rpy="-1.57 3.14 0" xyz="0.055 0 0.0025"/>
     <axis xyz="0 0 0"/>
   </joint>
 </robot>
