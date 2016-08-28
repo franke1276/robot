@@ -8,7 +8,7 @@ class Robot():
   current = None
   pwm = None
   offset = np.array([335,339,139,185,325,336])
-  factor = np.array([113,107,-73,104,131,119])
+  factor = np.array([113,107,-73,104,-131,119])
   current_angles = None
   def __init__(self, freq):
     self.freq = freq
