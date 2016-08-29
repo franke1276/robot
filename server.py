@@ -10,15 +10,12 @@ robot = ra.Robot(50)
 
 class MainHandler(tornado.web.RequestHandler):
   def put(self):
-    print("header: " + str(self.request.headers))
-    print("body: " + self.request.body)
-
     cmd = self.get_argument("cmd", "-")
     data = self.get_argument("data", "-")
     print("cmd: " + cmd + ", data: " + data)
     if cmd == "ca":
       angles = eval(data)
-      robot.change_angles(np.array(angels))
+      robot.change_angles(np.array(angles))
       self.write("OK")
     if cmd == "rs":
       robot.reset()
