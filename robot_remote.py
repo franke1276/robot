@@ -2,21 +2,23 @@
 from time import sleep
 import readchar
 import numpy as np
-import robot_arm_angles as ra
 import tornado.httpclient
+import urllib
+
 http_client = tornado.httpclient.HTTPClient()
 
-response = http_client.fetch("http://pi:9999/cmd")
 def cmd(cmd, data):
-  http_client.fetch(HTTPRequest(url="http://pi:9999/cmd",method="PUT", body="cmd="+cmd+"&data=" + str(data)))
+  d = { 'cmd': cmd, 'data': str(data)}
+  http_client.fetch(tornado.httpclient.HTTPRequest(url="http://pi:9999/cmd",method="PUT", headers={"Content-Type":       "application/x-www-form-urlencoded"},body=urllib.urlencode(d)))
 
 def change_angles(angles):
   cmd("ca", angles)
 def set_angles(angles):
   cmd("sa", angles)
+def reset():
+  cmd("rs", "")
 
 print("Start robot")
-robot = ra.Robot(50)
 exit = False
 step = 0.0015
 while not exit:
@@ -57,9 +59,6 @@ while not exit:
         lines = [eval(line) for line in f]
       robot.move_path(lines)
     if a == 'c':
-      robot.reset()
-    if a == 'm':
-      p = raw_input("Name:")
-      print(p + ": " + str(robot.current_pos()))
-robot.reset()
+      reset()
+reset()
 

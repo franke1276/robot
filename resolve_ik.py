@@ -11,4 +11,4 @@ target_frame =[
              [0  ,  0 , 1 , 0.15],
              [0  , 0 , 0 , 1  ]
              ]
-print(str(my_chain.inverse_kinematics(target_frame).tolist()[1:7]))
+print(str(my_chain.inverse_kinematics(target_frame, regularization_parameter=0.1).tolist()[1:7]))
