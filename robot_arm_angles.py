@@ -7,7 +7,7 @@ class Robot():
   freq = None
   current = None
   pwm = None
-  offset = np.array([335,339,139,185,325,336])
+  offset = np.array([329,335,136,185,325,323])
   factor = np.array([113,107,-73,104,-131,119])
   current_angles = None
   def __init__(self, freq):
@@ -31,8 +31,9 @@ class Robot():
       sleep(0.015)
   def set_angles(self,angles):
     corrected_angles = np.array(angles)
-    corrected_angles[2] = corrected_angles[2] + corrected_angles[1]
+    corrected_angles[2] = corrected_angles[2] + corrected_angles[1] * 1.3
     translated_angles = self.translate(corrected_angles).astype(int)
+    print(str(self.translate((np.array(angles)))))
     self.current = translated_angles
     self.__set_angles_raw(self.current)
     print("go to: " + str(angles))
