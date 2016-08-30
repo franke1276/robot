@@ -63,13 +63,14 @@ while not exit:
           [1, 0, 0],
           [0, 0, 1]]
       target_frame = ikpy.geometry_utils.to_transformation_matrix( target, rot)
-      values = my_chain.inverse_kinematics(target_frame, regularization_parameter=0.01).tolist()[1:7]
+      #values = my_chain.inverse_kinematics(target_frame, regularization_parameter=0.001).tolist()[1:7]
+      values = my_chain.inverse_kinematics(target_frame).tolist()[1:7]
       print(str(values))
       set_angles(values)
       exit_k = False
       while not exit_k:
         b = readchar.readchar()
-        k_step = 0.002
+        k_step = 0.01
         add = [0,0,0]
         if b == 'q':
           add = [k_step, 0 , 0] 
@@ -87,7 +88,7 @@ while not exit:
           exit_k=True 
         target = np.array(target) + np.array(add)
         target_frame = ikpy.geometry_utils.to_transformation_matrix( target, rot)
-        values = my_chain.inverse_kinematics(target_frame, regularization_parameter=0.05).tolist()[1:7]
+        values = my_chain.inverse_kinematics(target_frame).tolist()[1:7]
         print(str(target) + " -> " + str(values))
         set_angles(values)
        
