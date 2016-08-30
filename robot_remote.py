@@ -29,6 +29,30 @@ exit = False
 step = 0.015
 while not exit:
   a = readchar.readchar()
+  if a == 'q':
+    change_angles([step,0,0,0,0,0])
+  if a == 'a':
+    change_angles([-step,0,0,0,0,0])
+  if a == 'w':
+    change_angles([0,step,0,0,0,0])
+  if a == 's':
+    change_angles([0,-step,0,0,0,0])
+  if a == 'e':
+    change_angles([0,0,step,0,0,0])
+  if a == 'd':
+    change_angles([0,0,-step,0,0,0])
+  if a == 'r':
+    change_angles([0,0,0,step,0,0])
+  if a == 'f':
+    change_angles([0,0,0,-step,0,0])
+  if a == 't':
+    change_angles([0,0,0,0,step,0])
+  if a == 'g':
+    change_angles([0,0,0,0,-step,0])
+  if a == 'y':
+    change_angles([0,0,0,0,0,step])
+  if a == 'h':
+    change_angles([0,0,0,0,0,-step])
   if a == 'x':
     exit = True
   else:
@@ -39,7 +63,7 @@ while not exit:
           [1, 0, 0],
           [0, 0, 1]]
       target_frame = ikpy.geometry_utils.to_transformation_matrix( target, rot)
-      values = my_chain.inverse_kinematics(target_frame, regularization_parameter=0.1).tolist()[1:7]
+      values = my_chain.inverse_kinematics(target_frame, regularization_parameter=0.01).tolist()[1:7]
       print(str(values))
       set_angles(values)
       exit_k = False
